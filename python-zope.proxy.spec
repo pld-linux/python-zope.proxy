@@ -3,7 +3,7 @@
 %bcond_without	doc	# Sphinx documentation
 %bcond_with	tests	# unit tests (installed package required)
 %bcond_without	python2 # CPython 2.x module
-%bcond_without	python3 # CPython 3.x module
+%bcond_with	python3 # CPython 3.x module (built from python3-zope.proxy.spec)
 
 %define module	zope.proxy
 Summary:	Mostly-transparent wrappers around another object
@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	Prawie przezroczyste obudowywanie innych obiektów
 Name:		python-%{module}
 # keep 4.x here for python2 support
 Version:	4.6.1
-Release:	3
+Release:	4
 License:	ZPL v2.1
 Group:		Libraries/Python
 Source0:	https://files.pythonhosted.org/packages/source/z/zope.proxy/zope.proxy-%{version}.tar.gz
@@ -38,8 +38,8 @@ BuildRequires:	python3-zope.testrunner
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc}
-BuildRequires:	python3-repoze.sphinx.autointerface
-BuildRequires:	sphinx-pdg-3
+BuildRequires:	python-repoze.sphinx.autointerface
+BuildRequires:	sphinx-pdg-2
 %endif
 Requires:	python-modules >= 1:2.7
 Obsoletes:	Zope-Proxy < 3.5.0
@@ -139,7 +139,7 @@ zope-testrunner-3 --test-path=src -v
 %if %{with doc}
 PYTHONPATH=$(pwd)/src \
 %{__make} -C docs html \
-	SPHINXBUILD=sphinx-build-3
+	SPHINXBUILD=sphinx-build-2
 %endif
 
 %install
